@@ -1,7 +1,7 @@
 const skills = [
   {
     title: "Javascript",
-    competency: 4,
+    competency: 5,
     category: ["Web Development", "Languages", "Javascript"],
   },
   {
@@ -11,12 +11,12 @@ const skills = [
   },
   {
     title: "React",
-    competency: 2,
+    competency: 5,
     category: ["Web Development", "Javascript"],
   },
   {
     title: "Next.JS",
-    competency: 3,
+    competency: 4,
     category: ["Web Development", "Javascript"],
   },
   {
@@ -56,7 +56,7 @@ const skills = [
   },
   {
     title: "Express.JS",
-    competency: 2,
+    competency: 4,
     category: ["Web Development", "Javascript"],
   },
   {
@@ -101,12 +101,12 @@ const skills = [
   },
   {
     title: "Typescript",
-    competency: 3,
+    competency: 4,
     category: ["Web Development", "Languages", "Javascript"],
   },
   {
     title: "HTML + SASS/SCSS/CSS",
-    competency: 3,
+    competency: 5,
     category: ["Web Development", "Languages"],
   },
   {
@@ -131,7 +131,7 @@ const skills = [
   },
   {
     title: "GraphQL",
-    competency: 2,
+    competency: 3,
     category: ["Web Development", "Databases"],
   },
   {
