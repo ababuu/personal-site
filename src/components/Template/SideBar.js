@@ -22,14 +22,12 @@ const SideBar = () => (
     <section className="blurb">
       <h2>About</h2>
       <p>
-        Hi, I'm Ababu. I am an <a href="https://www.aait.edu.et/">AAiT</a>{" "}
-        graduate and a freelance software developer. Previously, I worked at{" "}
-        <a href="[Mrara Enterprises Website]">Mrara Enterprises</a> and{" "}
-        <a href="[360 Media Ground Website]">360 Media Ground</a>. I specialize
-        in frontend development with React, Redux Toolkit, and Tailwind CSS, as
-        well as backend development with Node.js. Currently, I’m diving deeper
-        into machine learning and system design to build scalable and
-        intelligent applications.
+        Hi, I&apos;m Ababu. I am an <a href="https://www.aait.edu.et/">AAiT</a>{" "}
+        graduate and a Fullstack web developer. I specialize in frontend
+        development with React, Redux Toolkit, and Tailwind CSS, as well as
+        backend development with Node.js. Currently, I&apos;m diving deeper into
+        machine learning and system design to build scalable and intelligent
+        applications.
       </p>
       <ul className="actions">
         <li>
