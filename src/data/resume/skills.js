@@ -30,11 +30,6 @@ const skills = [
     category: ["Web Development", "Tools"],
   },
   {
-    title: "Heroku",
-    competency: 2,
-    category: ["Web Development", "Tools"],
-  },
-  {
     title: "MongoDB",
     competency: 3,
     category: ["Web Development", "Databases"],
