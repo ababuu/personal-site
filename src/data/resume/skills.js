@@ -35,7 +35,7 @@ const skills = [
     category: ["Web Development", "Databases"],
   },
   {
-    title: "PostgreSQL/SQLite3/SQL/Redshift",
+    title: "PostgreSQL/SQLite3/SQL",
     competency: 4,
     category: ["Web Development", "Databases", "Languages"],
   },
@@ -65,7 +65,7 @@ const skills = [
     category: ["Web Development", "Python"],
   },
   {
-    title: "Git/Mercurial",
+    title: "Git",
     competency: 3,
     category: ["Tools"],
   },
