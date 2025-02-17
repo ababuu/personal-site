@@ -35,11 +35,6 @@ const skills = [
     category: ["Web Development", "Databases"],
   },
   {
-    title: "ElasticSearch",
-    competency: 2,
-    category: ["Web Development", "Databases"],
-  },
-  {
     title: "PostgreSQL/SQLite3/SQL/Redshift",
     competency: 4,
     category: ["Web Development", "Databases", "Languages"],
