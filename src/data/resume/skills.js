@@ -85,11 +85,6 @@ const skills = [
     category: ["Tools", "Data Engineering"],
   },
   {
-    title: "AWS Lambda",
-    competency: 3,
-    category: ["Tools", "Web Development"],
-  },
-  {
     title: "Typescript",
     competency: 4,
     category: ["Web Development", "Languages", "Javascript"],
