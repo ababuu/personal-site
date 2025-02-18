@@ -54,5 +54,6 @@ module.exports = {
         return: true,
       },
     ],
+    "object-curly-newline": ["off"], // or adjust the rule instead of turning it off completely
   },
 };
