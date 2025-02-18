@@ -4,14 +4,15 @@ import dayjs from "dayjs";
 import Markdown from "markdown-to-jsx";
 
 const Job = ({
-  data: {
-    name, position, url, startDate, endDate, summary, highlights,
-  },
+  data: { name, position, url, startDate, endDate, summary, highlights },
 }) => (
   <article className="jobs-container">
     <header>
       <h4>
-        <a href={url}>{name}</a> - {position}
+        <a href={url} target="_blank" rel="noreferrer">
+          {name}
+        </a>{" "}
+        - {position}
       </h4>
       <p className="daterange">
         {" "}
@@ -35,7 +36,7 @@ const Job = ({
       </Markdown>
     ) : null}
     {highlights ? (
-      <ul className="points">
+      <ul className="points" style={{ marginTop: "10px" }}>
         {highlights.map((highlight) => (
           <li key={highlight}>{highlight}</li>
         ))}
