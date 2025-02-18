@@ -75,7 +75,7 @@ const EmailLink = ({ loopMessage }) => {
         updateChar(newChar + 1);
       }
     },
-    isActive ? delay : null
+    isActive ? delay : null,
   );
 
   return (
