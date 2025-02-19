@@ -4,14 +4,7 @@ import { Link } from "react-router-dom";
 import Main from "../layouts/Main";
 
 const Index = () => (
-  <Main
-    description={
-      "Ababu's personal website. AAiT graduate and freelance software developer. " +
-      "Previously worked at Mrara Enterprises and 360 Media Ground. " +
-      "Experienced in frontend (React, Redux Toolkit, Tailwind CSS) and backend (Node.js). " +
-      "Currently exploring machine learning and system design."
-    }
-  >
+  <Main description="Ababu's personal website. AAiT graduate and freelance software developer. Previously worked at Mrara Enterprises and 360 Media Ground. Experienced in frontend (React, Redux Toolkit, Tailwind CSS) and backend (Node.js). Currently exploring machine learning and system design.">
     <article className="post" id="index">
       <header>
         <div className="title">
@@ -19,7 +12,7 @@ const Index = () => (
             <Link to="/">About this site</Link>
           </h2>
           <p>
-            A beautiful, responsive, statically-generated, react application
+            A minimalistic, responsive, statically-generated, react application
             written with modern Javascript.
           </p>
         </div>
