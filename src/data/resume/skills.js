@@ -6,7 +6,7 @@ const skills = [
   },
   {
     title: "Node.JS",
-    competency: 5,
+    competency: 4,
     category: ["Web Development", "Javascript"],
   },
   {
@@ -16,7 +16,7 @@ const skills = [
   },
   {
     title: "Next.JS",
-    competency: 4,
+    competency: 5,
     category: ["Web Development", "Javascript"],
   },
   {
@@ -26,7 +26,7 @@ const skills = [
   },
   {
     title: "Amazon Web Services",
-    competency: 4,
+    competency: 3,
     category: ["Web Development", "Tools"],
   },
   {
@@ -86,7 +86,7 @@ const skills = [
   },
   {
     title: "Typescript",
-    competency: 4,
+    competency: 5,
     category: ["Web Development", "Languages", "Javascript"],
   },
   {
@@ -96,7 +96,7 @@ const skills = [
   },
   {
     title: "Python",
-    competency: 5,
+    competency: 4,
     category: ["Languages", "Python", "ML Engineering"],
   },
   {
@@ -106,7 +106,7 @@ const skills = [
   },
   {
     title: "Ruby on Rails",
-    competency: 3,
+    competency: 2,
     category: ["Web Development", "Languages"],
   },
   {
