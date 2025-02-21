@@ -9,7 +9,7 @@ const Stats = () => {
   const fetchData = useCallback(async () => {
     // request must be authenticated if private
     const res = await fetch(
-      "https://api.github.com/repos/ababuu/personal-site",
+      "https://api.github.com/repos/ababuu/personal-site"
     );
     const resData = await res.json();
     setResponseData(
@@ -19,7 +19,7 @@ const Stats = () => {
         value: Object.keys(resData).includes(field.key)
           ? resData[field.key]
           : field.value,
-      })),
+      }))
     );
   }, []);
 
