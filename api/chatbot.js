@@ -98,7 +98,7 @@ export default async function handler(req, res) {
     const ai = getAIClient();
 
     const responseStream = await ai.models.generateContentStream({
-      model: "gemini-2.0-flash",
+      model: "gemini-2.5-flash",
       systemInstruction: {
         parts: [{ text: systemInstruction }]
       },
