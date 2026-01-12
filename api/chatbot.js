@@ -76,7 +76,7 @@ const getModel = () => {
   const genAI = new GoogleGenAI(process.env.GEMINI_API_KEY);
   cachedModel = genAI.getGenerativeModel({
     model: "gemini-2.5-flash",
-    systemInstruction,
+    systemInstruction
   });
 
   return cachedModel;
@@ -96,16 +96,30 @@ export default async function handler(req, res) {
 
   try {
     const model = getModel();
-    const result = await model.generateContent([
-      { role: "user", parts: [{ text: trimmedMessage }] },
+    const result = await model.generateContentStream([
+      { role: "user", parts: [{ text: trimmedMessage }] }
     ]);
 
-    const reply =
-      result?.response?.text?.() ?? "I could not generate a reply right now.";
-    return res.status(200).json({ reply });
+    res.setHeader("Content-Type", "text/plain; charset=utf-8");
+    res.setHeader("Transfer-Encoding", "chunked");
+    res.setHeader("X-Accel-Buffering", "no"); // Prevents Vercel/Nginx from buffering the stream
+
+    for await (const chunk of result.stream) {
+      const chunkText = chunk.text();
+      if (chunkText) {
+        res.write(chunkText);
+      }
+    }
+    res.end();
   } catch (error) {
     console.error("Chatbot API error:", error);
-    const message = error?.message ?? "Failed to fetch chatbot reply";
-    return res.status(500).json({ error: message });
+    if (!res.headersSent) {
+      const errorMessage = error?.message ?? "Failed to fetch chatbot reply";
+      res.status(500).json({ error: errorMessage });
+    } else {
+      // If we're already streaming, send a special signal or message
+      res.write("\n[An error occurred during the stream]");
+      res.end();
+    }
   }
 }
