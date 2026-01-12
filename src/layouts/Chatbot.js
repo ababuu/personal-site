@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import ChatWindow from "./ChatWindow";
-import ChatbotButton from "./ChatbotButton";
-import "./../styles/Chatbot.scss";
+import ChatWindow from "../components/Chatbot/ChatWindow";
+import ChatbotButton from "../components/Chatbot/ChatbotButton";
 
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,7 +11,7 @@ const Chatbot = () => {
 
   return (
     <div className={`chatbot-container ${isOpen ? "open" : ""}`}>
-      <ChatWindow />
+      <ChatWindow isOpen={isOpen} onClose={toggleChat} />
       <ChatbotButton toggleChat={toggleChat} />
     </div>
   );
