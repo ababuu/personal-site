@@ -6,55 +6,23 @@ module.exports = {
     jest: true,
     node: true,
   },
-  extends: "airbnb",
+  extends: ["airbnb", "prettier"],
   ignorePatterns: ["node_modules/", "build/"],
   parser: "@babel/eslint-parser",
   plugins: ["react"],
   rules: {
-    quotes: ["error", "double"], // Allow double quotes
-    "comma-dangle": "off", // Disable trailing comma rule
-    "jsx-a11y/anchor-is-valid": [
-      "error",
-      {
-        aspects: ["noHref", "invalidHref", "preferButton"],
-        components: ["Link"],
-        specialLink: ["to", "hrefLeft", "hrefRight"],
-      },
-    ],
-    "jsx-a11y/click-events-have-key-events": 0,
-    "jsx-a11y/href-no-hash": "off",
-    "jsx-a11y/no-static-element-interactions": 0,
-    // "linebreak-style": ["error", os.EOL === "\r\n" ? "windows" : "unix"],
-    "no-console": [
-      "error",
-      {
-        allow: ["warn", "error", "info"],
-      },
-    ],
-    "no-underscore-dangle": 0,
-    "react/destructuring-assignment": 0,
+    quotes: ["error", "double"],
+    "comma-dangle": "off",
+    "linebreak-style": "off",
+    "no-console": ["error", { allow: ["warn", "error", "info"] }],
     "react/function-component-definition": [
       2,
       { namedComponents: "arrow-function" },
     ],
-    "react/jsx-filename-extension": [
-      1,
-      {
-        extensions: [".js", ".jsx"],
-      },
-    ],
-    "react/jsx-no-useless-fragment": 0,
-    "react/jsx-one-expression-per-line": 0,
-    "react/jsx-props-no-spreading": 0,
-    "react/jsx-wrap-multilines": [
-      1,
-      {
-        assignment: true,
-        declaration: true,
-        return: true,
-      },
-    ],
-    "object-curly-newline": ["off"], // or adjust the rule instead of turning it off completely
-    "linebreak-style": "off",
+    "react/jsx-filename-extension": [1, { extensions: [".js", ".jsx"] }],
+    "react/destructuring-assignment": "off",
+    "react/jsx-no-useless-fragment": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
   },
 };
