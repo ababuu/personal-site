@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-regular-svg-icons/faCircleXmark";
 import { faRobot, faUser } from "@fortawesome/free-solid-svg-icons";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import ChatbotInput from "./ChatbotInput";
 
 const ChatWindow = ({ isOpen, onClose }) => {
@@ -29,40 +31,63 @@ const ChatWindow = ({ isOpen, onClose }) => {
     const userMessage = {
       id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
       role: "user",
-      content: trimmedInput,
+      content: trimmedInput
     };
     setMessages((prevMessages) => [...prevMessages, userMessage]);
     setInput("");
+
+    const botMessageId = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+    const botMessagePlaceholder = {
+      id: botMessageId,
+      role: "bot",
+      content: ""
+    };
+    setMessages((prevMessages) => [...prevMessages, botMessagePlaceholder]);
 
     try {
       const response = await fetch("/api/chatbot", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: trimmedInput }),
+        body: JSON.stringify({ message: trimmedInput })
       });
 
       if (!response.ok) {
         throw new Error(`Request failed with status ${response.status}`);
       }
 
-      const data = await response.json();
-      const botMessage = {
-        id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
-        role: "bot",
-        content:
-          data.reply || "I had trouble generating a reply. Please try again.",
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let streamedContent = "";
+
+      const readStream = async () => {
+        const { done, value } = await reader.read();
+        if (done) {
+          return;
+        }
+
+        streamedContent += decoder.decode(value, { stream: true });
+        setMessages((prevMessages) =>
+          prevMessages.map((msg) =>
+            msg.id === botMessageId ? { ...msg, content: streamedContent } : msg
+          )
+        );
+
+        await readStream();
       };
-      setMessages((prevMessages) => [...prevMessages, botMessage]);
+
+      await readStream();
     } catch (error) {
       console.error("Error fetching chatbot response:", error);
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        {
-          id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
-          role: "bot",
-          content: "Sorry, I couldn't get a response right now.",
-        },
-      ]);
+      setMessages((prevMessages) =>
+        prevMessages.map((msg) =>
+          msg.id === botMessageId
+            ? {
+                ...msg,
+                content: "Sorry, I couldn't get a response right now."
+              }
+            : msg
+        )
+      );
     }
   };
 
@@ -100,7 +125,15 @@ const ChatWindow = ({ isOpen, onClose }) => {
               {message.role === "bot" && (
                 <FontAwesomeIcon icon={faRobot} className="message-icon" />
               )}
-              <div className="message-bubble">{message.content}</div>
+              <div className="message-bubble">
+                {message.role === "bot" ? (
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {message.content}
+                  </ReactMarkdown>
+                ) : (
+                  message.content
+                )}
+              </div>
               {message.role === "user" && (
                 <FontAwesomeIcon icon={faUser} className="message-icon" />
               )}
@@ -120,7 +153,7 @@ const ChatWindow = ({ isOpen, onClose }) => {
 
 ChatWindow.propTypes = {
   isOpen: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired
 };
 
 export default ChatWindow;
