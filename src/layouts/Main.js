@@ -6,6 +6,7 @@ import Analytics from "../components/Template/Analytics";
 import Navigation from "../components/Template/Navigation";
 import SideBar from "../components/Template/SideBar";
 import ScrollToTop from "../components/Template/ScrollToTop";
+import Chatbot from "./Chatbot";
 
 const Main = (props) => (
   <HelmetProvider>
@@ -23,6 +24,7 @@ const Main = (props) => (
       <Navigation />
       <div id="main">{props.children}</div>
       {props.fullPage ? null : <SideBar />}
+      <Chatbot />
     </div>
   </HelmetProvider>
 );
