@@ -1,23 +1,35 @@
 .chatbot-button {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 50px;
-  height: 50px;
-  background-color: #474747;
-  color: white;
-  border: none;
-  border-radius: 50%;
+  bottom: 1.75rem;
+  right: 1.5rem;
+  width: 3.25rem;
+  height: 3.25rem;
+  background-color: transparent;
+  color: map-get($palette, fg-bold);
+  border: 1px solid map-get($palette, border);
+  border-radius: 999px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
+  font-size: 1.15rem;
   cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: none;
+  text-transform: uppercase;
+  letter-spacing: map-get($font, kerning-heading);
+  font-weight: map-get($font, weight-heading);
+  transition: color map-get($duration, transition) ease,
+    border-color map-get($duration, transition) ease,
+    transform map-get($duration, transition) ease;
+  z-index: map-get($misc, z-index-base);
 
   &:hover {
-    background-color: #0056b3;
-    transform: scale(1.1);
+    color: map-get($palette, accent);
+    border-color: map-get($palette, accent);
+    transform: translateY(-2px);
+  }
+
+  &:focus {
+    outline: 2px solid lighten(map-get($palette, border), 10%);
+    outline-offset: 2px;
   }
 }
