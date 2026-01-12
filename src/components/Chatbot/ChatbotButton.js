@@ -1,13 +1,21 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faComment } from "@fortawesome/free-solid-svg-icons";
+import { faComment } from "@fortawesome/free-regular-svg-icons";
 
-const ChatbotButton = ({ toggleChat }) => {
-  return (
-    <button className="chatbot-button" onClick={toggleChat}>
-      <FontAwesomeIcon icon={faComment} />
-    </button>
-  );
+const ChatbotButton = ({ toggleChat }) => (
+  <button
+    className="chatbot-button"
+    onClick={toggleChat}
+    aria-label="Open chatbot"
+    type="button"
+  >
+    <FontAwesomeIcon icon={faComment} />
+  </button>
+);
+
+ChatbotButton.propTypes = {
+  toggleChat: PropTypes.func.isRequired,
 };
 
 export default ChatbotButton;
