@@ -7,7 +7,7 @@
   bottom: 5.5rem;
   right: 1.5rem;
   width: 400px;
-  min-height: 40vh;
+  min-height: 600px;
   max-height: 40vh;
   background: map-get($palette, bg);
   border: 1px solid map-get($palette, border);
@@ -57,7 +57,7 @@
 .chatbot-messages {
   padding: 0.9rem 1rem;
   overflow-y: scroll;
-  height: calc(40vh - 3.5rem - 3.25rem);
+  height: calc(600px - 3.5rem - 3.25rem);
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
@@ -135,21 +135,6 @@
   border-top: 1px solid map-get($palette, border);
   flex-shrink: 0;
 }
-
-// .chatbot-input input {
-//   flex: 1;
-//   border: 1px solid map-get($palette, border);
-//   border-radius: 6px;
-//   padding: 0.55rem 0.75rem;
-//   font-size: 0.95rem;
-//   color: map-get($palette, fg-bold);
-//   background: map-get($palette, bg);
-
-//   &:focus {
-//     outline: 2px solid lighten(map-get($palette, accent), 25%);
-//     border-color: map-get($palette, accent);
-//   }
-// }
 
 .chatbot-input button {
   padding: 0 1.5em;
