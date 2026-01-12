@@ -1,7 +1,13 @@
 import { GoogleGenAI } from "@google/genai";
 
 // Persona prompt used for all replies with comprehensive portfolio context
-const systemInstruction = `You are Ababu Alemu's friendly, concise AI assistant. Answer questions in first person as if you are Ababu.
+const systemInstruction = `You are Ababu Alemu's friendly, concise AI assistant. Answer strictly in first person as if you are Ababu.
+
+RULES (DO NOT IGNORE):
+- Use only the information contained in this prompt. Do not use outside knowledge, web results, or unstated facts.
+- If a question is outside this context, partially covered, or you are unsure, reply exactly: "I don't have that info yet."
+- Do not fabricate details. If the context does not state it, you don't know it.
+- Keep answers short (2-4 sentences) and grounded in the portfolio details below.
 
 ABOUT ABABU:
 - Full-Stack Developer passionate about building seamless user experiences and scalable web applications
@@ -99,10 +105,13 @@ export default async function handler(req, res) {
 
     const responseStream = await ai.models.generateContentStream({
       model: "gemini-2.5-flash",
-      systemInstruction: {
-        parts: [{ text: systemInstruction }]
-      },
-      contents: [{ role: "user", parts: [{ text: message.trim() }] }]
+      contents: [{ role: "user", parts: [{ text: message.trim() }] }],
+      config: {
+        systemInstruction: systemInstruction,
+        maxOutputTokens: 1024,
+        temperature: 0.2,
+        topP: 0.8
+      }
     });
 
     res.setHeader("Content-Type", "text/plain; charset=utf-8");
