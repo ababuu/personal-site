@@ -137,7 +137,7 @@ const ChatWindow = ({ isOpen, onClose }) => {
           <div className="message-wrapper bot" key="placeholder">
             <FontAwesomeIcon icon={faRobot} className="message-icon" />
             <div className="message-bubble">
-              Hi! I'm your AI assistant. Ask me about my projects, resume,
+              Hi! I&apos;m your AI assistant. Ask me about my projects, resume,
               education, or anything else about my work!
             </div>
           </div>
