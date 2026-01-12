@@ -91,6 +91,29 @@ const ChatWindow = ({ isOpen, onClose }) => {
     }
   };
 
+  // Helper function to render message content to satisfy Airbnb 'no-nested-ternary'
+  const renderMessageContent = (message) => {
+    if (message.role === "user") {
+      return message.content;
+    }
+
+    if (message.content === "") {
+      return (
+        <div className="typing-indicator">
+          <span />
+          <span />
+          <span />
+        </div>
+      );
+    }
+
+    return (
+      <ReactMarkdown remarkPlugins={[remarkGfm]}>
+        {message.content}
+      </ReactMarkdown>
+    );
+  };
+
   return (
     <div
       className={`chatbot-window ${isOpen ? "open" : ""}`}
@@ -101,6 +124,9 @@ const ChatWindow = ({ isOpen, onClose }) => {
         <div
           className="chatbot-close"
           onClick={onClose}
+          onKeyDown={(e) => e.key === "Enter" && onClose()}
+          role="button"
+          tabIndex={0}
           aria-label="Close chat"
         >
           <FontAwesomeIcon icon={faCircleXmark} />
@@ -126,13 +152,7 @@ const ChatWindow = ({ isOpen, onClose }) => {
                 <FontAwesomeIcon icon={faRobot} className="message-icon" />
               )}
               <div className="message-bubble">
-                {message.role === "bot" ? (
-                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                    {message.content}
-                  </ReactMarkdown>
-                ) : (
-                  message.content
-                )}
+                {renderMessageContent(message)}
               </div>
               {message.role === "user" && (
                 <FontAwesomeIcon icon={faUser} className="message-icon" />

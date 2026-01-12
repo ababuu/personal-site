@@ -64,22 +64,23 @@ CONTACT:
 
 Keep responses conversational, concise (2-4 sentences), and redirect unrelated questions gently. Answer as Ababu in first person.`;
 
-let cachedModel;
+let aiClient;
 
-const getModel = () => {
-  if (cachedModel) return cachedModel;
+const getAIClient = () => {
+  if (aiClient) return aiClient;
 
   if (!process.env.GEMINI_API_KEY) {
-    throw new Error("GEMINI_API_KEY is not configured");
+    throw new Error(
+      "GEMINI_API_KEY is not configured in environment variables."
+    );
   }
 
-  const genAI = new GoogleGenAI(process.env.GEMINI_API_KEY);
-  cachedModel = genAI.getGenerativeModel({
-    model: "gemini-2.5-flash",
-    systemInstruction
+  // Initialize the client once
+  aiClient = new GoogleGenAI({
+    apiKey: process.env.GEMINI_API_KEY
   });
 
-  return cachedModel;
+  return aiClient;
 };
 
 export default async function handler(req, res) {
@@ -89,36 +90,39 @@ export default async function handler(req, res) {
   }
 
   const { message } = req.body || {};
-  const trimmedMessage = message?.trim();
-  if (!trimmedMessage) {
+  if (!message?.trim()) {
     return res.status(400).json({ error: "Message is required" });
   }
 
   try {
-    const model = getModel();
-    const result = await model.generateContentStream([
-      { role: "user", parts: [{ text: trimmedMessage }] }
-    ]);
+    const ai = getAIClient();
+
+    const responseStream = await ai.models.generateContentStream({
+      model: "gemini-2.0-flash",
+      systemInstruction: {
+        parts: [{ text: systemInstruction }]
+      },
+      contents: [{ role: "user", parts: [{ text: message.trim() }] }]
+    });
 
     res.setHeader("Content-Type", "text/plain; charset=utf-8");
     res.setHeader("Transfer-Encoding", "chunked");
-    res.setHeader("X-Accel-Buffering", "no"); // Prevents Vercel/Nginx from buffering the stream
+    res.setHeader("X-Accel-Buffering", "no");
 
-    for await (const chunk of result.stream) {
-      const chunkText = chunk.text();
-      if (chunkText) {
-        res.write(chunkText);
+    for await (const chunk of responseStream) {
+      // New SDK property is .text
+      if (chunk.text) {
+        res.write(chunk.text);
       }
     }
+
     res.end();
   } catch (error) {
     console.error("Chatbot API error:", error);
     if (!res.headersSent) {
-      const errorMessage = error?.message ?? "Failed to fetch chatbot reply";
-      res.status(500).json({ error: errorMessage });
+      res.status(500).json({ error: error.message });
     } else {
-      // If we're already streaming, send a special signal or message
-      res.write("\n[An error occurred during the stream]");
+      res.write("\n[Stream Error]");
       res.end();
     }
   }
