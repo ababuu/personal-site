@@ -21,6 +21,7 @@
     border-color map-get($duration, transition) ease,
     transform map-get($duration, transition) ease;
   z-index: map-get($misc, z-index-base);
+  animation: chatbot-pulse 4s ease-in-out infinite;
 
   &:hover {
     color: map-get($palette, accent);
@@ -31,5 +32,26 @@
   &:focus {
     outline: 2px solid lighten(map-get($palette, border), 10%);
     outline-offset: 2px;
+  }
+}
+
+@keyframes chatbot-pulse {
+  0% {
+    transform: translateY(0) scale(1);
+    box-shadow: 0 0 0 0 rgba(map-get($palette, accent), 0.18);
+  }
+  50% {
+    transform: translateY(-1px) scale(1.03);
+    box-shadow: 0 10px 22px 0 rgba(map-get($palette, accent), 0.18);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    box-shadow: 0 0 0 0 rgba(map-get($palette, accent), 0.18);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chatbot-button {
+    animation: none;
   }
 }
