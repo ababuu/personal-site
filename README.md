@@ -11,6 +11,7 @@ Welcome to **ababu.dev** – a beautiful, responsive, statically generated perso
 - **Modern Tech Stack** – Built with React, Next.js, and Tailwind CSS.
 - **Fast & Lightweight** – Optimized for speed and accessibility.
 - **Dynamic Content** – Easily update projects, blogs, and more.
+- **Interactive Chatbot** – Gemini 2.5 Flash–powered assistant that answers visitor questions about my background, projects, and resume using on-site context.
 
 ## Tech Stack
 
